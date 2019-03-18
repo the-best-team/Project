@@ -92,10 +92,11 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
     }
 
     public function saveUser() {
-        $user = new Users();
-        $user->username = $this->username;
-        $user->password = md5($this->password);
-        $user->email = $this->email;
+        $user = new Users([
+            'username' => $this->username,
+            'password' => md5($this->password),
+            'email' => $this->email
+        ]);
 
         return $user->save() ? $user : null;
     }
