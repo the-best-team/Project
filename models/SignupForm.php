@@ -56,10 +56,11 @@ class SignupForm extends Model
             return null;
         }
 
-        $user = new User();
-        $user->username = $this->username;
-        $user->password = md5($this->password);
-        $user->email = $this->email;
+        $user = new User([
+            'username' => $this->username,
+            'password' => $this->password,
+            'email' => $this->email
+        ]);
 
         return $user->saveUser() ? $user : null;
 
