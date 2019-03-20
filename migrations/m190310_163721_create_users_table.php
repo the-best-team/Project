@@ -14,12 +14,12 @@ class m190310_163721_create_users_table extends Migration
     {
         $this->createTable('{{%users}}', [
             'id' => $this->primaryKey(),
-            'login' => $this->string(50)->notNull(),
-            'password' => $this->string(20)->notNull(),
-            'email' => $this->string(50),
+            'username' => $this->string(50)->notNull(),
+            'password' => $this->string(100)->notNull(),
+            'email' => $this->string(50)->unique()->notNull(),
         ]);
 
-        $this->createIndex("index_users_login", "users", "login", true);
+        $this->createIndex("index_users_login", "users", "username", true);
     }
 
     /**
