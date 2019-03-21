@@ -47,14 +47,14 @@ $this->beginPage() ?>
                 '<div class="full-menu">'
                 . '<li><a href="#"><i class="fa fa-sign-in sign-in" aria-hidden="true"></i></a>'
                 . '<ul class="my-drop-menu"><div>'
-                . '<li><a href="#">Зарегистрироваться</a></li>'
+                . '<li><a href="/index.php?r=site/signup">Зарегистрироваться</a></li>'
                 . '<li><a href="/index.php?r=site/login">Войти</a></li>'
                 . '</div>'
                 . '</ul>'
                 . '</li></div>'
 
                 . '<div class="mobile-menu">'
-                . '<li><a href="#">Зарегистрироваться</a></li>'
+                . '<li><a href="/index.php?r=site/signup">Зарегистрироваться</a></li>'
                 . '<li><a href="/index.php?r=site/login">Войти</a></li>'
                 . '</div>'
             ) : (
