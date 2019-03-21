@@ -11,8 +11,8 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
 AppAsset::register($this);
-?>
-<?php $this->beginPage() ?>
+$this->beginPage() ?>
+
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
@@ -29,33 +29,45 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+        'brandLabel' => 'My Tracker',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
-    ];
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-    } else {
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
-            . '</li>';
-    }
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => $menuItems,
+        'options' => ['class' => 'navbar-nav navbar-right desk-menu'],
+        'items' => [
+            ['label' => 'Новая задача', 'url' => []],
+            ['label' => 'Цели', 'url' => []],
+            ['label' => 'Задачи на день', 'url' => []],
+            ['label' => 'Списки', 'url' => []],
+            ['label' => 'Отчеты', 'url' => []],
+            Yii::$app->user->isGuest ? (
+                '<div class="full-menu">'
+                . '<li><a href="#"><i class="fa fa-sign-in sign-in" aria-hidden="true"></i></a>'
+                . '<ul class="my-drop-menu"><div>'
+                . '<li><a href="#">Зарегистрироваться</a></li>'
+                . '<li><a href="/index.php?r=site/login">Войти</a></li>'
+                . '</div>'
+                . '</ul>'
+                . '</li></div>'
+
+                . '<div class="mobile-menu">'
+                . '<li><a href="#">Зарегистрироваться</a></li>'
+                . '<li><a href="/index.php?r=site/login">Войти</a></li>'
+                . '</div>'
+            ) : (
+                '<li>'
+                . Html::beginForm(['/site/logout'], 'post')
+                . Html::submitButton(
+                    'Выйти (' . Yii::$app->user->identity->username . ')',
+                    ['class' => 'btn btn-link logout']
+                )
+                . Html::endForm()
+                . '</li>'
+            )
+        ],
     ]);
     NavBar::end();
     ?>
@@ -70,10 +82,47 @@ AppAsset::register($this);
 </div>
 
 <footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+    <div class="container foot-wrap">
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        <div class="foot-div-logo">
+            <a href="#"><img src="../img/logo.png" alt="logo" class="logo"></a>
+            <span>My Tracker</span><br>
+            <p>Objectively transition extensive data rather than cross functional
+                solutions. Monotonectally syndicate multidisciplinary materials
+                before go forward benefits. Intrinsicly syndicate an expanded
+                array of processes and cross-unit partnerships. Efficiently
+                plagiarize 24/365 action items and focused infomediaries.
+                Distinctively seize superior initiatives for wireless technologies.
+                Dynamically optimize.</p>
+        </div>
+        <div class="foot-div-menu">
+            <span>Меню</span><br>
+            <p>
+                <a href="#">Новая задача</a><br>
+                <a href="#">Цели</a><br>
+                <a href="#">Задачи на день</a><br>
+                <a href="#">Списки</a><br>
+                <a href="#">Отчеты</a>
+            </p>
+        </div>
+        <div class="foot-div-info">
+            <span>Information</span><br>
+            <p>
+                <a href="#">Tearms & Condition</a><br>
+                <a href="#">Privacy Policy</a><br>
+                <a href="#">How to Buy</a><br>
+                <a href="#">How to Sell</a><br>
+                <a href="#">Promotion</a>
+            </p>
+        </div>
+
+    </div>
+
+    <div class="foot-bottom">
+        <div class="container">
+            <p class="pull-left">&copy; My Tracker 2019</p>
+            <p class="pull-right"><?= Yii::powered() ?></p>
+        </div>
     </div>
 </footer>
 
