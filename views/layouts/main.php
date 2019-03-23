@@ -81,6 +81,8 @@ $this->beginPage() ?>
     </div>
 </div>
 
+// Для теста ...
+
 <footer class="footer">
     <div class="container foot-wrap">
 
