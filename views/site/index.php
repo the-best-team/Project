@@ -2,16 +2,17 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'My Tracker';
+$this->title = 'My Yii Application';
 ?>
-<div class="header-wrap">
-    <h1>Организуйте свои задачи<br><span>И наслаждайтесь жизнью...</span></h1>
-    <p>Жизнь может казатсья ошеломительной, но ей не обязательно такой быть.
-        My Tracker позволяет отслеживать все задачи в одном месте,
-        чтобы вам было проще выполнять задуманное, сохраняя душевный покой.</p>
-
-</div>
 <div class="site-index">
+
+    <div class="jumbotron">
+        <h1>Congratulations!</h1>
+
+        <p class="lead">You have successfully created your Yii-powered application.</p>
+
+        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+    </div>
 
     <div class="body-content">
 
