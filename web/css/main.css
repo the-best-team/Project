@@ -256,21 +256,6 @@ h1 span {
   .desk-menu {
     font-size: 0.89em;
   }
-
-  .full-menu {
-    display: none;
-  }
-
-  .mobile-menu {
-    display: block;
-  }
-  .mobile-menu li a {
-    text-decoration: none;
-    line-height: 20px;
-    padding: 10px 0 10px 15px;
-    position: relative;
-    display: block;
-  }
 }
 @media screen and (max-width: 576px) {
   .header-wrap {
@@ -297,6 +282,21 @@ h1 span {
 
   .foot-wrap {
     background-position: 95% 98%;
+  }
+
+  .full-menu {
+    display: none;
+  }
+
+  .mobile-menu {
+    display: block;
+  }
+  .mobile-menu li a {
+    text-decoration: none;
+    line-height: 20px;
+    padding: 10px 0 10px 15px;
+    position: relative;
+    display: block;
   }
 }
 @media screen and (max-width: 480px) {
