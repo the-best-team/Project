@@ -11,8 +11,8 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
 AppAsset::register($this);
-$this->beginPage() ?>
-
+?>
+<?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
@@ -35,39 +35,40 @@ $this->beginPage() ?>
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
+    $menuItems = [
+        ['label' => 'Новая задача', 'url' => ['#']],
+        ['label' => 'Цели', 'url' => ['#']],
+        ['label' => 'Задачи на день', 'url' => ['#']],
+        ['label' => 'Списки', 'url' => ['#']],
+        ['label' => 'Отчеты', 'url' => ['#']],
+    ];
+    if (Yii::$app->user->isGuest) {
+        $menuItems[] = '<div class="full-menu">'
+            . '<li><a href="#"><i class="fa fa-sign-in sign-in" aria-hidden="true"></i></a>'
+            . '<ul class="my-drop-menu"><div>'
+            . '<li><a href="/index.php?r=site/signup">Зарегистрироваться</a></li>'
+            . '<li><a href="/index.php?r=site/login">Войти</a></li>'
+            . '</div>'
+            . '</ul>'
+            . '</li></div>'
+
+            . '<div class="mobile-menu">'
+            . '<li><a href="/index.php?r=site/signup">Зарегистрироваться</a></li>'
+            . '<li><a href="/index.php?r=site/login">Войти</a></li>'
+            . '</div>';
+    } else {
+        $menuItems[] = '<li>'
+            . Html::beginForm(['/site/logout'], 'post')
+            . Html::submitButton(
+                'Logout (' . Yii::$app->user->identity->username . ')',
+                ['class' => 'btn btn-link logout']
+            )
+            . Html::endForm()
+            . '</li>';
+    }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right desk-menu'],
-        'items' => [
-            ['label' => 'Новая задача', 'url' => []],
-            ['label' => 'Цели', 'url' => []],
-            ['label' => 'Задачи на день', 'url' => []],
-            ['label' => 'Списки', 'url' => []],
-            ['label' => 'Отчеты', 'url' => []],
-            Yii::$app->user->isGuest ? (
-                '<div class="full-menu">'
-                . '<li><a href="#"><i class="fa fa-sign-in sign-in" aria-hidden="true"></i></a>'
-                . '<ul class="my-drop-menu"><div>'
-                . '<li><a href="/index.php?r=site/signup">Зарегистрироваться</a></li>'
-                . '<li><a href="/index.php?r=site/login">Войти</a></li>'
-                . '</div>'
-                . '</ul>'
-                . '</li></div>'
-
-                . '<div class="mobile-menu">'
-                . '<li><a href="/index.php?r=site/signup">Зарегистрироваться</a></li>'
-                . '<li><a href="/index.php?r=site/login">Войти</a></li>'
-                . '</div>'
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Выйти (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
+        'items' => $menuItems,
     ]);
     NavBar::end();
     ?>
