@@ -1,291 +1,117 @@
-@mixin transform($value){
-  -webkit-transform: ($value);
-  -moz-transform: ($value);
-  -ms-transform: ($value);
-  transform: ($value);
-}
-@mixin transition($value){
-  -webkit-transition: ($value);
-  -moz-transition: ($value);
-  /*-ms-transition: ($value);*/
-  transition: ($value);
+html,
+body {
+  height: 100%;
+  font-family: 'Open Sans', sans-serif;
+  color: #e6ecff;
 }
 
-*{
-  box-sizing: border-box;
+.wrap {
+  min-height: 100%;
+  margin: 0 auto -60px;
+  padding: 0 0 60px;
+  background: #24292e;
 }
 
-.sign-in {
-  font-size: 25px;
-  margin-top: -3px;
-  color: #5cb85c;
+.wrap > .container {
+  padding: 70px 15px 20px;
 }
 
-.sign-in:hover {
-  color: #449d44;
+.footer {
+  background-color: #262626;
+  border-top: 1px solid #2b669a;
+  padding-top: 20px;
+  color: #fff !important;
 }
 
-.desk-menu{
+.jumbotron {
+  text-align: center;
+  background-color: transparent;
+}
+
+.jumbotron .btn {
+  font-size: 21px;
+  padding: 14px 24px;
+}
+
+.not-set {
+  color: #c55;
+  font-style: italic;
+}
+
+/* add sorting icons to gridview sort links */
+a.asc:after, a.desc:after {
   position: relative;
-  list-style: none;
-  font-weight: 400;
-  text-transform: uppercase;
+  top: 1px;
   display: inline-block;
-  padding: 0;
-  li{
-    position: relative;
-    cursor: pointer;
-    z-index: 5;
-  }
-}
-li{
-  margin: 0;
-}
-.my-drop-menu{
-  overflow: hidden;
-  list-style: none;
-  position: absolute;
-  padding: 0;
-  width: 200px;
-  right: 0;
-  top: 35px;
-  div{
-    @include transform(translate(0,-100%));
-    @include transition(all 0.5s 0.1s);
-    position: relative;
-    background: #5cb85c !important;
-    display: block;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
-  }
-  li{
-    display:block;
-    padding: 10px;
-    width: 100%;
-
-
-    a{
-      color: #fff;
-      text-decoration: none;
-
-      &:hover{
-        color: #24292e;
-      }
-    }
-  }
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  padding-left: 5px;
 }
 
-@for $i from 1 through 6{
-  .desk-menu li:nth-child(#{$i}){
-    &:hover ul div{
-      @include transform(translate(0,0));
-    }
-  }
+a.asc:after {
+  content: /*"\e113"*/ "\e151";
 }
 
-.foot-bottom{
-  background: #222;
-  width: 100%;
-  height: 50px;
-  p{
-    padding: 15px 0 0 15px;
-  }
+a.desc:after {
+  content: /*"\e114"*/ "\e152";
 }
 
-.logo{
-  width: 50px;
-  margin: 20px 30px 20px 0;
+.sort-numerical a.asc:after {
+  content: "\e153";
 }
 
-.foot-div-logo{
+.sort-numerical a.desc:after {
+  content: "\e154";
+}
+
+.sort-ordinal a.asc:after {
+  content: "\e155";
+}
+
+.sort-ordinal a.desc:after {
+  content: "\e156";
+}
+
+.grid-view th {
+  white-space: nowrap;
+}
+
+.hint-block {
   display: block;
-  width: 400px;
-  margin-right: 100px;
-}
-
-.foot-div-menu{
-  padding-top: 35px;
-  display: block;
-  margin-right: 50px;
-  width: 180px;
-  p{
-    margin-top: 35px;
-  }
-}
-
-.foot-div-info{
-  display: block;
-  padding-top: 35px;
-  p{
-    margin-top: 35px;
-  }
-}
-
-.foot-wrap{
-  background: url("/img/foot-img.png") no-repeat 98% 98% ;
-  background-size: 80px;
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: flex-start;
-  align-content: center;
-  a{
-    text-decoration: none;
-  }
-  span{
-    text-transform: uppercase;
-  }
-}
-
-.pull-left{
-  padding-left: 0 !important;
-}
-
-.header-wrap{
-  background: url("/img/header-img.png") no-repeat 98% 98%;
-  background-size: 500px;
-  margin-bottom: 80px;
-  p{
-    width: 40%;
-    line-height: 2em;
-    color: #9d9d9d;
-    font-size: large;
-  }
-}
-
-h1{
-  text-transform: uppercase;
-  line-height: 2em;
-  span{
-    color: #5cb85c;
-    line-height: 1em;
-  }
-}
-
-.body-content{
-  margin-bottom: 10%;
-}
-
-.full-menu{
-  display: inline-block;
-  padding: 10px 15px;
   margin-top: 5px;
+  color: #999;
 }
 
-.mobile-menu{
-  display: none;
+.error-summary {
+  color: #a94442;
+  background: #fdf7f7;
+  border-left: 3px solid #eed3d7;
+  padding: 10px 20px;
+  margin: 0 0 15px 0;
 }
 
-///*********************** @media
-
-@media screen and (max-width: 1280px){
-  .header-wrap{
-    background-size: 400px;
-  }
+/* align the logout "link" (button in form) of the navbar */
+.nav li > form > button.logout {
+  padding: 15px;
+  border: none;
 }
 
-@media screen and (max-width: 992px){
-  .foot-div-logo{
+@media(max-width:767px) {
+  .nav li > form > button.logout {
+    display:block;
+    text-align: left;
     width: 100%;
-    margin-right: 0;
-  }
-
-  .header-wrap{
-    background-size: 400px;
-  }
-  h1{
-    font-size: 2em;
-  }
-
-  h2{
-    font-size: 1.8em;
+    padding: 10px 15px;
   }
 }
 
-@media screen and (max-width: 768px){
-  .foot-div-logo{
-    width: 100%;
-    margin-right: 0;
-  }
-
-  .foot-div-menu{
-    width: 250px;
-  }
-
-  h1{
-    font-size: 1.8em;
-  }
-
-  h2{
-    font-size: 1.5em;
-  }
-
-  .header-wrap{
-    p{
-      font-size: medium;
-      padding-bottom: 10%;
-    }
-    margin-bottom: 30px;
-  }
-
-  .desk-menu{
-    font-size: 0.89em;
-  }
-
+.nav > li > form > button.logout:focus,
+.nav > li > form > button.logout:hover {
+  text-decoration: none;
 }
 
-@media screen and (max-width: 576px){
-  .header-wrap{
-    background-size: 250px;
-    margin-bottom: 20px;
-    p{
-      font-size: small;
-      width: 80%;
-      padding-bottom: 15%;
-    }
-  }
-  h1{
-    font-size: 1.5em;
-  }
-
-  h2{
-    font-size: 1.4em;
-  }
-
-  .foot-div-menu{
-    width: 200px;
-  }
-
-  .foot-wrap{
-    background-position: 95% 98%;
-  }
-
-  .full-menu{
-    display: none;
-  }
-
-  .mobile-menu{
-    display: block;
-    li {
-      a {
-        text-decoration: none;
-        line-height: 20px;
-        padding: 10px 0 10px 15px;
-        position: relative;
-        display: block;
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 480px){
-  .header-wrap{
-    background-size: 200px;
-    margin-bottom: 15px;
-    p{
-      padding-bottom: 20%;
-    }
-  }
+.nav > li > form > button.logout:focus {
+  outline: none;
 }

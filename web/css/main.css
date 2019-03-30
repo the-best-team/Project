@@ -37,7 +37,7 @@ li {
   padding: 0;
   width: 200px;
   right: 0;
-  top: 35px;
+  top: 36px;
 }
 .my-drop-menu div {
   -webkit-transform: translate(0, -100%);
@@ -49,7 +49,7 @@ li {
   /*-ms-transition: ($value);*/
   transition: all 0.5s 0.1s;
   position: relative;
-  background: #5cb85c !important;
+  background: #222222 !important;
   display: block;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
@@ -60,11 +60,12 @@ li {
   width: 100%;
 }
 .my-drop-menu li a {
-  color: #fff;
+  color: #ffffff;
   text-decoration: none;
 }
 .my-drop-menu li a:hover {
-  color: #24292e;
+  color: rgb(255, 255, 255);
+  text-shadow: 0 0 5px white, 0 0 10px white, 0 0 15px #1fdc08, 0 0 20px #3dff00, 0 0 35px green, 0 0 40px green, 0 0 50px green, 0 0 75px green;
 }
 
 .desk-menu li:nth-child(1):hover ul div {
