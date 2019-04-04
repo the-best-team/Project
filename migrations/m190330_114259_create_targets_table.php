@@ -24,7 +24,6 @@ class m190330_114259_create_targets_table extends Migration
             'status_id' => $this->integer()
         ]);
 
-        $this->createIndex("index_resolve", "targets", "date_resolve", true);
         $this->addForeignKey('fk_targets_status', 'targets','status_id', 'status', 'id');
         $this->addForeignKey('fk_targets_users', 'targets','user_id', 'users', 'id');
 

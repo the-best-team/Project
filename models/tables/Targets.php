@@ -65,7 +65,6 @@ class Targets extends \yii\db\ActiveRecord
             [['user_id', 'status_id'], 'integer'],
             [['date_create', 'date_change', 'date_plane', 'date_resolve'], 'safe'],
             [['name'], 'string', 'max' => 255],
-            [['date_resolve'], 'unique'],
             [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => Status::className(), 'targetAttribute' => ['status_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
