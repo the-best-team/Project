@@ -43,14 +43,22 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'enableStrictParsing' => true,
             'rules' => [
+                'targets/update/<id>' => 'targets/update',
+                'targets/view/<id>' => 'targets/view',
+                'targets' => 'targets',
+                '/' => 'site/index',
+                'targets/create' => 'targets/create',
+                'site/logout' => 'site/logout',
+                'signup' => 'site/signup',
+                'login' => 'site/login'
             ],
         ],
-        */
+
     ],
     'params' => $params,
 ];

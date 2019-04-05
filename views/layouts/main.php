@@ -37,24 +37,24 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Новая задача', 'url' => ['#']],
-        ['label' => 'Цели', 'url' => ['#']],
+        ['label' => 'Цели', 'url' => ['/targets']],
         ['label' => 'Задачи на день', 'url' => ['#']],
         ['label' => 'Списки', 'url' => ['#']],
         ['label' => 'Отчеты', 'url' => ['#']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = '<div class="full-menu">'
-            . '<li><a href="#"><i class="fa fa-sign-in sign-in" aria-hidden="true"></i></a>'
+            . '<li><i class="fa fa-sign-in sign-in" aria-hidden="true"></i>'
             . '<ul class="my-drop-menu"><div>'
-            . '<li><a href="/index.php?r=site/signup">Зарегистрироваться</a></li>'
-            . '<li><a href="/index.php?r=site/login">Войти</a></li>'
+            . '<li><a href="signup">Зарегистрироваться</a></li>'
+            . '<li><a href="login">Войти</a></li>'
             . '</div>'
             . '</ul>'
             . '</li></div>'
 
             . '<div class="mobile-menu">'
-            . '<li><a href="/index.php?r=site/signup">Зарегистрироваться</a></li>'
-            . '<li><a href="/index.php?r=site/login">Войти</a></li>'
+            . '<li><a href="signup">Зарегистрироваться</a></li>'
+            . '<li><a href="login">Войти</a></li>'
             . '</div>';
     } else {
         $menuItems[] = '<li>'
