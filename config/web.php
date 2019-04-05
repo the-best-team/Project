@@ -54,8 +54,8 @@ $config = [
                 '/' => 'site/index',
                 'targets/create' => 'targets/create',
                 'site/logout' => 'site/logout',
-                'site/signup' => 'site/signup',
-                'site/login' => 'site/login'
+                'signup' => 'site/signup',
+                'login' => 'site/login'
             ],
         ],
 
