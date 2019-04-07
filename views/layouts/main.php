@@ -36,11 +36,12 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
-        ['label' => 'Новая задача', 'url' => ['#']],
         ['label' => 'Цели', 'url' => ['/targets']],
-        ['label' => 'Задачи на день', 'url' => ['#']],
+        ['label' => 'Новая задача', 'url' => ['/tasks/create']],
+        ['label' => 'Задачи на день', 'url' => ['/tasks/day']],
+        ['label' => 'Все задачи', 'url' => ['/tasks']],
         ['label' => 'Списки', 'url' => ['#']],
-        ['label' => 'Отчеты', 'url' => ['#']],
+
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = '<div class="full-menu">'
