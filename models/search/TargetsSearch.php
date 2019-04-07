@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models\tables;
+namespace app\models\search;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -72,7 +72,7 @@ class TargetsSearch extends Targets
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'description', $this->description]);
-//            ->andFilterWhere(['like', 'user_id' => $this->user_id]);
+
 
         return $dataProvider;
     }
