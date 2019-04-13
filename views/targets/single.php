@@ -10,7 +10,7 @@ use yii\helpers\Html;
 
 if(!$hideBreadcrumbs) {
     $this->params['breadcrumbs'][] = ['label' => 'Targets', 'url' => ['index']];
-    $this->params['breadcrumbs'][] = $this->title;
+    $this->params['breadcrumbs'][] = $this["name"];
 }
 \yii\web\YiiAsset::register($this);
 
@@ -24,19 +24,9 @@ if(!$hideBreadcrumbs) {
     <h2><?= $model["description"] ?></h2>
     <h3><?= $model["date_plane"] ?></h3>
     <h3><?= $model["date_resolve"] ?></h3>
-    <h3><?= $model["status"]->name ?></h3>
-
-    <?php foreach ($model["tasks"] as $task):?>
-        <a href="./tasks/view/<?=$task->id?>">
-            <div class="catalog-preview" style="border: 1px #000 solid; margin: 5px; padding:5px; width: 150px">
-                <div><?=$task->name?></div>
-                <div>Status: <?=$task->user_id?></div>
-            </div>
-        </a>
-    <?php endforeach;?>
+    <h3><?= $model["status"] ?></h3>
 
     <p>
-        <?= Html::a('New task', ['tasks/create'], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Update', ['update', 'id' => $model["id"]], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model["id"]], [
             'class' => 'btn btn-danger',

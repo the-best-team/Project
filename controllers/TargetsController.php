@@ -51,29 +51,20 @@ class TargetsController extends Controller
      */
     public function actionIndex()
     {
-//        $searchModel = new TargetsSearch();
-//        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
         $user = Yii::$app->user->id;
 
-        $dataProvider = Targets::find()->where(['user_id' => Yii::$app->user->id])->with('status','tasks');
-        $provider = new ActiveDataProvider([
-            'query' => $dataProvider,
+        $provider = new SqlDataProvider([
+            'sql' => 'SELECT targets.*, status.name as status ' .
+              'FROM targets ' .
+              'LEFT JOIN status ON(targets.status_id = status.id)' .
+                'WHERE targets.user_id=:user',
+            'params' => [':user' => $user],
+            'pagination' => [
+                'pageSize' => 5,
+            ],
         ]);
 
-//        $sqlDataProvider = new SqlDataProvider([
-//            'sql' => 'SELECT targets.*, status.name as status ' .
-//              'FROM targets ' .
-//              'LEFT JOIN status ON(targets.status_id = status.id)' .
-//                'WHERE targets.user_id=:user',
-//            'params' => [':user' => $user],
-//            'pagination' => [
-//                'pageSize' => 5,
-//            ],
-//        ]);
-
         return $this->render('index', [
-//            'searchModel' => $searchModel,
             'dataProvider' => $provider,
         ]);
     }
@@ -86,7 +77,11 @@ class TargetsController extends Controller
      */
     public function actionView($id)
     {
-        $model = $this->findModel($id);
+        $data = Targets::find()->where(['id' => $id])->with('status','tasks');
+        $provider = new ActiveDataProvider([
+            'query' => $data,
+        ]);
+        $model = $provider->getModels()[0];
 
         if(!($model->user_id == Yii::$app->user->id)) {
             throw new ForbiddenHttpException('У вас нет доступа для просмотра данной страницы!');

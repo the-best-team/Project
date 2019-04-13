@@ -105,14 +105,20 @@ class TasksController extends Controller
      */
     public function actionView($id)
     {
-        $model = $this->findModel($id);
+        $data = Tasks::find()->where(['id' => $id])->with('status', 'target', 'category');
+        $provider = new ActiveDataProvider([
+            'query' => $data,
+        ]);
+        $model = $provider->getModels()[0];
+
+//        $model = $this->findModel($id);
 
         if(!($model->user_id == Yii::$app->user->id)) {
             throw new ForbiddenHttpException('У вас нет доступа для просмотра данной страницы!');
         }
 
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
 

@@ -12,6 +12,7 @@ if(!$hideBreadcrumbs) {
     $this->params['breadcrumbs'][] = $this->title;
 }
 \yii\web\YiiAsset::register($this);
+
 ?>
 <div class="targets-view">
 
@@ -28,25 +29,24 @@ if(!$hideBreadcrumbs) {
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-//            'id',
-            'name',
-//            [
-//                'label' => 'New field',
-////                'value' => 'test',
-//                'contentOptions' => [''],
-//                'captionOptions' => ['']
-//            ],
-            'description:ntext',
-//            'user_id',
-//            'date_create',
-//            'date_change',
-            'date_plane',
-            'date_resolve',
-//            'status_id',
-        ],
-    ]) ?>
+    <h1><?= $model->name ?></h1>
+    <h2><?= $model->description ?></h2>
+    <h3><?= $model->date_plane ?></h3>
+    <h3><?= $model->date_resolve ?></h3>
+    <h3><?= $model->status["name"] ?></h3>
+
+    <?php foreach ($model->tasks as $task):?>
+        <a href="../../tasks/view/<?=$task["id"]?>">
+            <div class="catalog-preview" style="border: 1px #000 solid; margin: 5px; padding:5px; width: 150px">
+                <div><?=$task["name"]?></div>
+                <div>Status: <?=$task["user_id"]?></div>
+            </div>
+        </a>
+    <?php endforeach;?>
+
+    <p>
+        <?= Html::a('New task', ['tasks/create'], ['class' => 'btn btn-primary']) ?>
+    </p>
+
 
 </div>
