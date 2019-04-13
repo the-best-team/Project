@@ -6,7 +6,10 @@ use Yii;
 use app\models\tables\Tasks;
 use app\models\search\TasksSearch;
 use yii\data\ActiveDataProvider;
+use yii\data\SqlDataProvider;
+use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -21,6 +24,17 @@ class TasksController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'create', 'update', 'delete', 'day'],
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view', 'create', 'update', 'delete', 'day'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -61,16 +75,24 @@ class TasksController extends Controller
             $date = date('Y-m-d');
         }
 
-        $query = Tasks::find()->where(['user_id' => Yii::$app->user->id, 'date_plane' => $date]);
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+        $user = Yii::$app->user->id;
+
+
+        $sqlDataProvider = new SqlDataProvider([
+            'sql' => 'SELECT tasks.*, categories.name as category, targets.name as target, status.name as status ' .
+                'FROM tasks ' .
+                'LEFT JOIN status ON(tasks.status_id = status.id )' .
+                'LEFT JOIN categories ON(tasks.category_id = categories.id )' .
+                'LEFT JOIN targets ON(tasks.target_id = targets.id )' .
+                'WHERE tasks.user_id=:user AND tasks.date_plane=:date_plane',
+            'params' => [':user' => $user, ':date_plane' => $date],
             'pagination' => [
                 'pageSize' => 5,
             ],
         ]);
 
         return $this->render('tasks', [
-            'dataProvider' => $dataProvider,
+            'dataProvider' => $sqlDataProvider,
         ]);
     }
 
@@ -99,11 +121,12 @@ class TasksController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($target = null)
     {
         $model = new Tasks();
 
-        $model->user_id =Yii::$app->user->id;
+        $model->user_id = Yii::$app->user->id;
+        if($target) $model->target_id = $target;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['tasks/view/', 'id' => $model->id]);

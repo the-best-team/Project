@@ -2,10 +2,12 @@
 
 namespace app\controllers;
 
+use app\models\tables\Status;
 use Yii;
 use app\models\tables\Targets;
 use app\models\search\TargetsSearch;
 use yii\data\ActiveDataProvider;
+use yii\data\SqlDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
@@ -52,17 +54,27 @@ class TargetsController extends Controller
 //        $searchModel = new TargetsSearch();
 //        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        $query = Targets::find()->where(['user_id' => Yii::$app->user->id]);
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => 5,
-            ],
+        $user = Yii::$app->user->id;
+
+        $dataProvider = Targets::find()->where(['user_id' => Yii::$app->user->id])->with('status','tasks');
+        $provider = new ActiveDataProvider([
+            'query' => $dataProvider,
         ]);
+
+//        $sqlDataProvider = new SqlDataProvider([
+//            'sql' => 'SELECT targets.*, status.name as status ' .
+//              'FROM targets ' .
+//              'LEFT JOIN status ON(targets.status_id = status.id)' .
+//                'WHERE targets.user_id=:user',
+//            'params' => [':user' => $user],
+//            'pagination' => [
+//                'pageSize' => 5,
+//            ],
+//        ]);
 
         return $this->render('index', [
 //            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'dataProvider' => $provider,
         ]);
     }
 
