@@ -3,26 +3,17 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\tables\Targets;
-<<<<<<< Updated upstream
-use app\models\tables\TargetsSearch;
+use app\models\tables\Tasks;
+use app\models\search\TasksSearch;
 use yii\data\ActiveDataProvider;
-use yii\filters\AccessControl;
 use yii\web\Controller;
-=======
-use app\models\search\TargetsSearch;
-use yii\data\ActiveDataProvider;
-use yii\filters\AccessControl;
-use yii\web\Controller;
-use yii\web\ForbiddenHttpException;
->>>>>>> Stashed changes
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * TargetsController implements the CRUD actions for Targets model.
+ * TasksController implements the CRUD actions for Tasks model.
  */
-class TargetsController extends Controller
+class TasksController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,17 +21,6 @@ class TargetsController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['index', 'view', 'create', 'update', 'delete'],
-                'rules' => [
-                    [
-                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -51,19 +31,37 @@ class TargetsController extends Controller
     }
 
     /**
-     * Lists all Targets models.
+     * Lists all Tasks models.
      * @return mixed
      */
     public function actionIndex()
     {
-<<<<<<< Updated upstream
-        $searchModel = new TargetsSearch();
-=======
-//        $searchModel = new TargetsSearch();
->>>>>>> Stashed changes
+        $searchModel = new TasksSearch();
+
+        $query = Tasks::find()->where(['user_id' => Yii::$app->user->id]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 5,
+            ],
+        ]);
 //        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        $query = Targets::find()->where(['user_id' => Yii::$app->user->id]);
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionDay($date = null) {
+
+//        $valid = \DateTime::createFromFormat('Y-m-d', $date);
+
+        if(!$date) {
+            $date = date('Y-m-d');
+        }
+
+        $query = Tasks::find()->where(['user_id' => Yii::$app->user->id, 'date_plane' => $date]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
@@ -71,28 +69,20 @@ class TargetsController extends Controller
             ],
         ]);
 
-        return $this->render('index', [
-<<<<<<< Updated upstream
-            'searchModel' => $searchModel,
-=======
-//            'searchModel' => $searchModel,
->>>>>>> Stashed changes
+        return $this->render('tasks', [
             'dataProvider' => $dataProvider,
         ]);
     }
 
+
     /**
-     * Displays a single Targets model.
+     * Displays a single Tasks model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
-<<<<<<< Updated upstream
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-=======
         $model = $this->findModel($id);
 
         if(!($model->user_id == Yii::$app->user->id)) {
@@ -100,25 +90,23 @@ class TargetsController extends Controller
         }
 
         return $this->render('view', [
-            'model' => $model,
->>>>>>> Stashed changes
-            'hideBreadcrumbs' => true
+            'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new Targets model.
+     * Creates a new Tasks model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Targets();
+        $model = new Tasks();
 
         $model->user_id =Yii::$app->user->id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['targets/view/' . $model->id]);
+            return $this->redirect(['tasks/view/', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -127,7 +115,7 @@ class TargetsController extends Controller
     }
 
     /**
-     * Updates an existing Targets model.
+     * Updates an existing Tasks model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -137,15 +125,12 @@ class TargetsController extends Controller
     {
         $model = $this->findModel($id);
 
-<<<<<<< Updated upstream
-=======
         if(!($model->user_id == Yii::$app->user->id)) {
             throw new ForbiddenHttpException('У вас нет доступа для просмотра данной страницы!');
         }
 
->>>>>>> Stashed changes
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['targets/view/' . $model->id]);
+            return $this->redirect(['tasks/view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
@@ -154,7 +139,7 @@ class TargetsController extends Controller
     }
 
     /**
-     * Deletes an existing Targets model.
+     * Deletes an existing Tasks model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -162,9 +147,6 @@ class TargetsController extends Controller
      */
     public function actionDelete($id)
     {
-<<<<<<< Updated upstream
-        $this->findModel($id)->delete();
-=======
         $model = $this->findModel($id);
 
         if(!($model->user_id == Yii::$app->user->id)) {
@@ -172,21 +154,20 @@ class TargetsController extends Controller
         }
 
         $model->delete();
->>>>>>> Stashed changes
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Targets model based on its primary key value.
+     * Finds the Tasks model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Targets the loaded model
+     * @return Tasks the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Targets::findOne($id)) !== null) {
+        if (($model = Tasks::findOne($id)) !== null) {
             return $model;
         }
 

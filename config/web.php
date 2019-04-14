@@ -5,6 +5,8 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
+    'language' => 'ru-RU',
+    'sourceLanguage' => 'ru-RU',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
@@ -18,6 +20,24 @@ $config = [
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
+        ],
+        'i18n' => [
+            'translations' => [
+                'app*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    //'basePath' => '@app/messages',
+                    //'sourceLanguage' => 'en-US',
+                    'fileMap' => [
+                        'app' => 'app.php',
+                        'app/error' => 'error.php',
+                    ],
+                ],
+            ],
+        ],
+        'urlManager' => [
+            'class' => 'codemix\localeurls\UrlManager',
+            'languages' => ['ru', 'en'],
+            'enableDefaultLanguageUrlCode' => true,
         ],
         'user' => [
             'identityClass' => 'app\models\User',
@@ -48,6 +68,7 @@ $config = [
             'showScriptName' => false,
             'enableStrictParsing' => true,
             'rules' => [
+<<<<<<< Updated upstream
                 'targets/update/<id>' => 'targets/update',
                 'targets/view/<id>' => 'targets/view',
                 'targets' => 'targets',
@@ -59,6 +80,25 @@ $config = [
             ],
         ],
 
+=======
+                '/' => 'site/index',
+                'signup' => 'site/signup',
+                'login' => 'site/login',
+                'site/logout' => 'site/logout',
+                'targets/update/<id>' => 'targets/update',
+                'targets/view/<id>' => 'targets/view',
+                'targets/create' => 'targets/create',
+                'targets/delete' => 'targets/delete',
+                'targets' => 'targets/index',
+                'tasks/update/<id>' => 'tasks/update',
+                'tasks/view/<id>' => 'tasks/view',
+                'tasks/create' => 'tasks/create',
+                'tasks/delete' => 'tasks/delete',
+                'tasks/day' => 'tasks/day',
+                'tasks' => 'tasks/index',
+            ],
+        ],
+>>>>>>> Stashed changes
     ],
     'params' => $params,
 ];
@@ -79,5 +119,7 @@ if (YII_ENV_DEV) {
         //'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 }
+
+
 
 return $config;
