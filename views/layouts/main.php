@@ -40,7 +40,7 @@ AppAsset::register($this);
         ['label' => 'Новая задача', 'url' => ['/tasks/create']],
         ['label' => 'Задачи на день', 'url' => ['/tasks/day']],
         ['label' => 'Все задачи', 'url' => ['/tasks']],
-        ['label' => 'Списки', 'url' => ['#']],
+//        ['label' => 'Списки', 'url' => ['#']],
 
     ];
     if (Yii::$app->user->isGuest) {

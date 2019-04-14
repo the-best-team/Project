@@ -2,6 +2,7 @@
 
 namespace app\models\search;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\tables\Tasks;
@@ -73,6 +74,8 @@ class TasksSearch extends Tasks
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'description', $this->description])
             ->andFilterWhere(['like', 'result', $this->result]);
+
+//        $query->andFilterWhere(['user_id' => Yii::$app->user->id]);
 
         return $dataProvider;
     }

@@ -62,6 +62,7 @@ $config = [
                 'tasks/create' => 'tasks/create',
                 'tasks/delete' => 'tasks/delete',
                 'tasks/day' => 'tasks/day',
+                'tasks/day/<date>' => 'tasks/day',
                 'tasks' => 'tasks/index',
             ],
         ],

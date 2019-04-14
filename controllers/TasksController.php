@@ -50,30 +50,49 @@ class TasksController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new TasksSearch();
+//        $searchModel = new TasksSearch();
 
-        $query = Tasks::find()->where(['user_id' => Yii::$app->user->id]);
+        $user = Yii::$app->user->id;
+
+        $query = Tasks::find()->where(['user_id' => $user])->with('status', 'target', 'category');
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 5,
+                'pageSize' => 10,
             ],
         ]);
 //        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
+//            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
     public function actionDay($date = null) {
 
-//        $valid = \DateTime::createFromFormat('Y-m-d', $date);
-
         if(!$date) {
             $date = date('Y-m-d');
+            $model = $this->getData($date);
+
+            return $this->render('tasks', [
+                'models' => $model,
+                'date' => $date,
+            ]);
+        } else {
+             $valid = \DateTime::createFromFormat('Y-m-d', $date);
+            if($valid) {
+                $model = $this->getData($date);
+                echo json_encode($model);
+            } else echo json_encode($model = 'Incorrect date');
+            exit;
         }
+
+
+    }
+
+    public function getData($date) {
 
         $user = Yii::$app->user->id;
 
@@ -91,9 +110,9 @@ class TasksController extends Controller
             ],
         ]);
 
-        return $this->render('tasks', [
-            'dataProvider' => $sqlDataProvider,
-        ]);
+        $model = $sqlDataProvider->getModels();
+
+        return $model;
     }
 
 
