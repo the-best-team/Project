@@ -1,3 +1,21 @@
+@font-face {
+  font-family: "Comfortaa";
+  src: local("Comfortaa"), url("../fonts/Comfortaawght.woff2") format("woff2"), url("../fonts/Comfortaa_wght_.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "MPLUSRounded1c";
+  src: local("MPLUSRounded1c"), url("../fonts/MPLUSRounded1c-Regular.woff2") format("woff2"), url("../fonts/MPLUSRounded1c-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Roboto";
+  src: local("Roboto"), url("../fonts/Roboto-Light.woff2") format("woff2"), url("../fonts/Roboto-Light.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 * {
   box-sizing: border-box;
 }
@@ -307,6 +325,110 @@ h1 span {
   .header-wrap p {
     padding-bottom: 20%;
   }
+}
+.targetsContainer {
+  position: relative;
+  margin: 50px 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+
+.cardTargets {
+  display: block;
+  width: 30%;
+  padding: 10px 0 0;
+  border-radius: 10px;
+  margin-bottom: 50px;
+  border: 1px solid #5774b3;
+}
+.cardTargets .cardTargetsDesc {
+  color: #a0a0a3;
+  opacity: 0.8;
+}
+.cardTargets:hover {
+  background: #38383d;
+  color: #fff;
+}
+.cardTargets:hover .wrapButton {
+  background: #526386;
+}
+
+.summaryClass {
+  width: 100%;
+  margin-bottom: 20px;
+  color: #a0a0a3;
+  opacity: 0.5;
+  font-family: Comfortaa, cursive;
+}
+
+.btn-purple {
+  font-size: 20px;
+  color: #fff;
+}
+.btn-purple:hover {
+  color: #563d7c;
+}
+
+.btn-red {
+  font-size: 20px;
+  color: #fff;
+}
+.btn-red:hover {
+  color: #cc332e;
+}
+
+.wrapButton {
+  display: block;
+  margin-top: 20px;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  clear: both;
+  float: right;
+  border-top: 1px solid #5774b3;
+  width: 100%;
+  background: #5774b3;
+  padding: 15px 25px 0 25px;
+}
+.wrapButton > div {
+  float: right;
+  padding-left: 15px;
+  padding-bottom: 10px;
+}
+.wrapButton .trash {
+  margin-top: -2px;
+}
+
+.wrapInfo {
+  padding: 0 25px 0 25px;
+}
+.wrapInfo > h4 {
+  font-family: "Comfortaa", cursive;
+}
+
+.dataCreateTarget {
+  float: left;
+  display: block;
+}
+.dataCreateTarget > .fa-circle-o {
+  color: #fd7e14;
+}
+
+.dataDeadlineTarget {
+  float: right;
+  display: block;
+}
+.dataDeadlineTarget > .fa-bolt {
+  color: #dc3545;
+}
+
+.statusTarget {
+  display: block;
+  float: left;
+  clear: both;
 }
 
 /*# sourceMappingURL=main.css.map */

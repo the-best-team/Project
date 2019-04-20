@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\tables\TargetsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Targets';
+$this->title = 'Цели';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="targets-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Targets', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать новую цель', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?

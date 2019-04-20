@@ -75,9 +75,10 @@ AppAsset::register($this);
     ?>
 
     <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
+<!--        Пока хлебные крошки не нужны-->
+<!--        --><?//= Breadcrumbs::widget([
+//            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+//        ]) ?>
         <?= Alert::widget() ?>
         <?= $content ?>
     </div>
@@ -87,7 +88,7 @@ AppAsset::register($this);
     <div class="container foot-wrap">
 
         <div class="foot-div-logo">
-            <a href="#"><img src="../img/logo.png" alt="logo" class="logo"></a>
+            <a href="/"><img src="/../img/logo.png" alt="logo" class="logo"></a>
             <span>My Tracker</span><br>
             <p>Objectively transition extensive data rather than cross functional
                 solutions. Monotonectally syndicate multidisciplinary materials

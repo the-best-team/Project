@@ -8,6 +8,8 @@
 
 use yii\helpers\Html;
 
+//use yii\widgets\DetailView; -- закомментила, пока не используется
+
 if(!$hideBreadcrumbs) {
     $this->params['breadcrumbs'][] = ['label' => 'Targets', 'url' => ['index']];
     $this->params['breadcrumbs'][] = $this["name"];
@@ -16,9 +18,7 @@ if(!$hideBreadcrumbs) {
 
 ?>
 
-
 <div class="targets-view">
-
 
     <h1><?= $model["name"] ?></h1>
     <h2><?= $model["description"] ?></h2>
@@ -36,8 +36,4 @@ if(!$hideBreadcrumbs) {
             ],
         ]) ?>
     </p>
-
-
-
-
 </div>
