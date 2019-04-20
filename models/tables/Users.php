@@ -47,4 +47,14 @@ class Users extends \yii\db\ActiveRecord
             'email' => 'Email',
         ];
     }
+
+    public function getTasks()
+    {
+        return $this->hasMany(Tasks::className(), ['user_id' => 'id']);
+    }
+
+    public function getTargets()
+    {
+        return $this->hasMany(Targets::className(), ['user_id' => 'id']);
+    }
 }

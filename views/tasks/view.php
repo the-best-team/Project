@@ -10,6 +10,7 @@ $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Tasks', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
+
 ?>
 <div class="tasks-view">
 
@@ -26,23 +27,32 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'name',
-            'description:ntext',
-            'category_id',
-            'target_id',
+    <h1><?= $model->name ?></h1>
+    <h2><?= $model->description ?></h2>
+    <h3><?= $model->category["name"] ?></h3>
+    <h3><?= $model->target["name"] ?></h3>
+    <h3><?= $model->date_plane ?></h3>
+    <h3><?= $model->date_resolve ?></h3>
+    <h3><?= $model->result ?></h3>
+    <h3><?= $model->status["name"] ?></h3>
+
+<!--    --><?//= DetailView::widget([
+//        'model' => $model,
+//        'attributes' => [
+//            'id',
+//            'name',
+//            'description:ntext',
+//            'category_id',
+//            'target_id',
 //            'user_id',
 //            'responsible_id',
 //            'date_create',
 //            'date_change',
-            'date_plane',
-            'date_resolve',
-            'result:ntext',
-            'status_id',
-        ],
-    ]) ?>
+//            'date_plane',
+//            'date_resolve',
+//            'result:ntext',
+//            'status_id',
+//        ],
+//    ]) ?>
 
 </div>

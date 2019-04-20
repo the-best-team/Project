@@ -103,4 +103,9 @@ class Targets extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Users::className(), ['id' => 'user_id']);
     }
+
+    public function getTasks()
+    {
+        return $this->hasMany(Tasks::className(), ['target_id' => 'id']);
+    }
 }

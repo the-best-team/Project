@@ -9,6 +9,7 @@ use yii\grid\GridView;
 
 $this->title = 'Tasks';
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="tasks-index">
 
@@ -21,23 +22,29 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+//        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'name',
-            'description:ntext',
-            'category_id',
-            'target_id',
+//            'id',
+            ['attribute' => 'name',
+                'label' => 'Название'],
+//            'description:ntext',
+            ['attribute' => 'category.name',
+                'label'=> 'Категория'],
+            ['attribute' => 'target.name',
+                'label' => 'Цель'],
             //'user_id',
             //'responsible_id',
             //'date_create',
             //'date_change',
-            'date_plane',
-            'date_resolve',
+            ['attribute' => 'date_plane',
+                'label' => 'Планируемая дата'],
+            ['attribute' => 'date_resolve',
+                'label' => 'Дата выполнения'],
             //'result:ntext',
-            'status_id',
+            ['attribute' => 'status.name',
+                'label' => 'Статус'],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
