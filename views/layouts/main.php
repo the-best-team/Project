@@ -90,13 +90,6 @@ AppAsset::register($this);
         <div class="foot-div-logo">
             <a href="/"><img src="/../img/logo.png" alt="logo" class="logo"></a>
             <span>My Tracker</span><br>
-            <p>Objectively transition extensive data rather than cross functional
-                solutions. Monotonectally syndicate multidisciplinary materials
-                before go forward benefits. Intrinsicly syndicate an expanded
-                array of processes and cross-unit partnerships. Efficiently
-                plagiarize 24/365 action items and focused infomediaries.
-                Distinctively seize superior initiatives for wireless technologies.
-                Dynamically optimize.</p>
         </div>
         <div class="foot-div-menu">
             <span>Меню</span><br>
@@ -109,13 +102,10 @@ AppAsset::register($this);
             </p>
         </div>
         <div class="foot-div-info">
-            <span>Information</span><br>
+            <span>О проекте</span><br>
             <p>
-                <a href="#">Tearms & Condition</a><br>
-                <a href="#">Privacy Policy</a><br>
-                <a href="#">How to Buy</a><br>
-                <a href="#">How to Sell</a><br>
-                <a href="#">Promotion</a>
+                <a href="#">Условия использования</a><br>
+                <a href="#">Политика конфиденциальности</a>
             </p>
         </div>
 
