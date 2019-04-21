@@ -12,47 +12,41 @@ $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 
 ?>
-<div class="tasks-view">
+<div class="tasksView">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
 
-    <h1><?= $model->name ?></h1>
-    <h2><?= $model->description ?></h2>
-    <h3><?= $model->category["name"] ?></h3>
-    <h3><?= $model->target["name"] ?></h3>
-    <h3><?= $model->date_plane ?></h3>
-    <h3><?= $model->date_resolve ?></h3>
-    <h3><?= $model->result ?></h3>
-    <h3><?= $model->status["name"] ?></h3>
+    <div class="cardTask">
+        <p><?= $model->description ?></p>
+        <div>
+            <i class="fa fa-pie-chart" aria-hidden="true"></i> <span>Категория: </span> <?= $model->category["name"] ?>
+        </div>
+        <div>
+            <i class="fa fa-rocket" aria-hidden="true" style="color: #5cb85c;"></i> <span>Цель: </span> <?= $model->target["name"] ?>
+        </div>
+        <div>
+            <i class="fa fa-circle-o" aria-hidden="true" style="color: #f87c14;"></i> <span>Планируемая дата: </span> <?= $model->date_plane ?>
+        </div>
+        <div>
+            <i class="fa fa-bolt" aria-hidden="true" style="color: #dc3545;"></i> <span>Дата выполнения: </span> <?= $model->date_resolve ?>
+        </div>
+        <div>
+            <i class="fa fa-handshake-o" aria-hidden="true"></i> <span>Результат: </span> <?= $model->result ?>
+        </div>
+        <div>
+            <i class="fa fa-tag" aria-hidden="true"></i> <span>Статус: </span> <?= $model->status["name"] ?>
+        </div>
 
-<!--    --><?//= DetailView::widget([
-//        'model' => $model,
-//        'attributes' => [
-//            'id',
-//            'name',
-//            'description:ntext',
-//            'category_id',
-//            'target_id',
-//            'user_id',
-//            'responsible_id',
-//            'date_create',
-//            'date_change',
-//            'date_plane',
-//            'date_resolve',
-//            'result:ntext',
-//            'status_id',
-//        ],
-//    ]) ?>
-
+        <div class="wrapButton">
+            <div class="trash"><?= Html::a('<i class="fa btn-red fa-trash-o" aria-hidden="true"></i>', ['delete', 'id' => $model["id"]], [
+                    'data' => [
+                        'confirm' => 'Вы уверены что хотите удалить эту задачу?',
+                        'method' => 'post',
+                    ],
+                ]) ?>
+            </div>
+            <div><?= Html::a('<i class="fa btn-purple fa-pencil-square-o" aria-hidden="true"></i>', ['update', 'id' => $model["id"]]) ?></div>
+        </div>
+    </div>
 </div>

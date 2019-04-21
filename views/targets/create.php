@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\tables\Targets */
 
-$this->title = 'Create Targets';
+$this->title = 'Новая цель';
 $this->params['breadcrumbs'][] = ['label' => 'Targets', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
