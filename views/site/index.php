@@ -14,18 +14,18 @@ $this->title = 'My Tracker';
 <div class="site-index">
     <h2>Создавайте цели</h2>
     <div class="ramka">
-        <img src="../img/1.png" alt="listTargets">
+        <img src="../img/1.PNG" alt="listTargets">
     </div>
     <h2>Редактируйте их по мере необходимости</h2>
     <div class="ramka">
-        <img src="../img/2.png" alt="listTargets">
+        <img src="../img/2.PNG" alt="listTargets">
     </div>
     <h2>Выводите задачи на день</h2>
     <div class="ramka">
-        <img src="../img/3.png" alt="listTargets">
+        <img src="../img/3.PNG" alt="listTargets">
     </div>
     <h2>Просматривайте все задачи в одном месте</h2>
     <div class="ramka">
-        <img src="../img/4.png" alt="listTargets">
+        <img src="../img/4.PNG" alt="listTargets">
     </div>
 </div>
