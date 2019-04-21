@@ -7,18 +7,14 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\search\TasksSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tasks';
+$this->title = 'Список всех задач';
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
-<div class="tasks-index">
+<div class="allTasks">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a('Create Tasks', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -49,4 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+    <p>
+        <?= Html::a('Создать новую задачу', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
 </div>

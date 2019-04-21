@@ -14,39 +14,51 @@ if(!$hideBreadcrumbs) {
 \yii\web\YiiAsset::register($this);
 
 ?>
-<div class="targets-view">
+<div class="targetsView">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+    <div class="cardTargetSingle">
+        <p><?= $model->description ?></p>
 
-    <h1><?= $model->name ?></h1>
-    <h2><?= $model->description ?></h2>
-    <h3><?= $model->date_plane ?></h3>
-    <h3><?= $model->date_resolve ?></h3>
-    <h3><?= $model->status["name"] ?></h3>
+        <div>
+            <i class="fa fa-circle-o" aria-hidden="true" style="color: #f87c14;"></i> <span>Планируемая дата: </span> <?= $model->date_plane ?>
+        </div>
+        <div>
+            <i class="fa fa-bolt" aria-hidden="true" style="color: #dc3545;"></i> <span>Дата выполнения: </span> <?= $model->date_resolve ?>
+        </div>
+        <div>
+            <i class="fa fa-tag" aria-hidden="true"></i> <span>Статус: </span> <?= $model->status["name"] ?>
+        </div>
 
-    <?php foreach ($model->tasks as $task):?>
-        <a href="../../tasks/view/<?=$task["id"]?>">
-            <div class="catalog-preview" style="border: 1px #000 solid; margin: 5px; padding:5px; width: 150px">
-                <div><?=$task["name"]?></div>
-                <div>Status: <?=$task["user_id"]?></div>
+        <?php foreach ($model->tasks as $task):?>
+            <a href="../../tasks/view/<?=$task["id"]?>">
+                <div class="catalog-preview" style=" margin: 5px; padding:1px; width: 150px">
+                    <div><?=$task["name"]?></div>
+                    <!--                <div>Status: --><?//=$task["user_id"]?><!--</div>-->
+                </div>
+            </a>
+        <?php endforeach;?>
+
+        <p style="margin: 30px 0 !important; ">
+            <?= Html::a('Создать новую задачу', ['tasks/create'], ['class' => 'btn btn-success']) ?>
+        </p>
+
+        <div class="wrapButton">
+            <div class="trash"><?= Html::a('<i class="fa btn-red fa-trash-o" aria-hidden="true"></i>', ['delete', 'id' => $model["id"]], [
+                    'data' => [
+                        'confirm' => 'Вы уверены что хотите удалить эту задачу?',
+                        'method' => 'post',
+                    ],
+                ]) ?>
             </div>
-        </a>
-    <?php endforeach;?>
+            <div><?= Html::a('<i class="fa btn-purple fa-pencil-square-o" aria-hidden="true"></i>', ['update', 'id' => $model["id"]]) ?></div>
+        </div>
+    </div>
 
-    <p>
-        <?= Html::a('New task', ['tasks/create'], ['class' => 'btn btn-primary']) ?>
-    </p>
+
+
+
 
 
 </div>
