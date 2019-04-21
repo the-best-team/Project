@@ -2,10 +2,9 @@
 
 namespace app\controllers;
 
-use app\models\tables\Status;
 use Yii;
-use app\models\tables\Targets;
-use app\models\search\TargetsSearch;
+use app\models\tables\Tasks;
+use app\models\search\TasksSearch;
 use yii\data\ActiveDataProvider;
 use yii\data\SqlDataProvider;
 use yii\filters\AccessControl;
@@ -15,9 +14,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * TargetsController implements the CRUD actions for Targets model.
+ * TasksController implements the CRUD actions for Tasks model.
  */
-class TargetsController extends Controller
+class TasksController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -27,10 +26,10 @@ class TargetsController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index', 'view', 'create', 'update', 'delete'],
+                'only' => ['index', 'view', 'create', 'update', 'delete', 'day'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                        'actions' => ['index', 'view', 'create', 'update', 'delete', 'day'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -46,42 +45,92 @@ class TargetsController extends Controller
     }
 
     /**
-     * Lists all Targets models.
+     * Lists all Tasks models.
      * @return mixed
      */
     public function actionIndex()
     {
+//        $searchModel = new TasksSearch();
+
         $user = Yii::$app->user->id;
 
-        $provider = new SqlDataProvider([
-            'sql' => 'SELECT targets.*, status.name as status ' .
-              'FROM targets ' .
-              'LEFT JOIN status ON(targets.status_id = status.id)' .
-                'WHERE targets.user_id=:user',
-            'params' => [':user' => $user],
+        $query = Tasks::find()->where(['user_id' => $user])->with('status', 'target', 'category');
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
+//        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+//            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionDay($date = null) {
+
+        if(!$date) {
+            $date = date('Y-m-d');
+            $model = $this->getData($date);
+
+            return $this->render('tasks', [
+                'models' => $model,
+                'date' => $date,
+            ]);
+        } else {
+             $valid = \DateTime::createFromFormat('Y-m-d', $date);
+            if($valid) {
+                $model = $this->getData($date);
+                echo json_encode($model);
+            } else echo json_encode($model = 'Incorrect date');
+            exit;
+        }
+
+
+    }
+
+    public function getData($date) {
+
+        $user = Yii::$app->user->id;
+
+
+        $sqlDataProvider = new SqlDataProvider([
+            'sql' => 'SELECT tasks.*, categories.name as category, targets.name as target, status.name as status ' .
+                'FROM tasks ' .
+                'LEFT JOIN status ON(tasks.status_id = status.id )' .
+                'LEFT JOIN categories ON(tasks.category_id = categories.id )' .
+                'LEFT JOIN targets ON(tasks.target_id = targets.id )' .
+                'WHERE tasks.user_id=:user AND tasks.date_plane=:date_plane',
+            'params' => [':user' => $user, ':date_plane' => $date],
             'pagination' => [
                 'pageSize' => 5,
             ],
         ]);
 
-        return $this->render('index', [
-            'dataProvider' => $provider,
-        ]);
+        $model = $sqlDataProvider->getModels();
+
+        return $model;
     }
 
+
     /**
-     * Displays a single Targets model.
+     * Displays a single Tasks model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
-        $data = Targets::find()->where(['id' => $id])->with('status','tasks');
+        $data = Tasks::find()->where(['id' => $id])->with('status', 'target', 'category');
         $provider = new ActiveDataProvider([
             'query' => $data,
         ]);
         $model = $provider->getModels()[0];
+
+//        $model = $this->findModel($id);
 
         if(!($model->user_id == Yii::$app->user->id)) {
             throw new ForbiddenHttpException('У вас нет доступа для просмотра данной страницы!');
@@ -89,23 +138,23 @@ class TargetsController extends Controller
 
         return $this->render('view', [
             'model' => $model,
-            'hideBreadcrumbs' => true
         ]);
     }
 
     /**
-     * Creates a new Targets model.
+     * Creates a new Tasks model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($target = null)
     {
-        $model = new Targets();
+        $model = new Tasks();
 
-        $model->user_id =Yii::$app->user->id;
+        $model->user_id = Yii::$app->user->id;
+        if($target) $model->target_id = $target;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['targets/view/' . $model->id]);
+            return $this->redirect(['tasks/view/', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -114,7 +163,7 @@ class TargetsController extends Controller
     }
 
     /**
-     * Updates an existing Targets model.
+     * Updates an existing Tasks model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -129,7 +178,7 @@ class TargetsController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['targets/view/' . $model->id]);
+            return $this->redirect(['tasks/view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
@@ -138,7 +187,7 @@ class TargetsController extends Controller
     }
 
     /**
-     * Deletes an existing Targets model.
+     * Deletes an existing Tasks model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -158,15 +207,15 @@ class TargetsController extends Controller
     }
 
     /**
-     * Finds the Targets model based on its primary key value.
+     * Finds the Tasks model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Targets the loaded model
+     * @return Tasks the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Targets::findOne($id)) !== null) {
+        if (($model = Tasks::findOne($id)) !== null) {
             return $model;
         }
 

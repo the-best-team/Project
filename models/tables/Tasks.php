@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: admin
- * Date: 30/03/2019
- * Time: 19:55
- */
-
 
 namespace app\models\tables;
 
@@ -15,29 +8,36 @@ use yii\db\ActiveRecord;
 use yii\db\Expression;
 
 /**
- * This is the model class for table "targets".
+ * This is the model class for table "tasks".
  *
  * @property int $id
  * @property string $name
  * @property string $description
+ * @property int $category_id
+ * @property int $target_id
  * @property int $user_id
+ * @property int $responsible_id
  * @property string $date_create
  * @property string $date_change
  * @property string $date_plane
  * @property string $date_resolve
+ * @property string $result
  * @property int $status_id
  *
+ * @property Categories $category
+ * @property Users $responsible
  * @property Status $status
+ * @property Targets $target
  * @property Users $user
  */
-class Targets extends \yii\db\ActiveRecord
+class Tasks extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'targets';
+        return 'tasks';
     }
 
     public function behaviors() {
@@ -61,11 +61,14 @@ class Targets extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['description'], 'string'],
-            [['user_id', 'status_id'], 'integer'],
+            [['description', 'result'], 'string'],
+            [['category_id', 'target_id', 'user_id', 'responsible_id', 'status_id'], 'integer'],
             [['date_create', 'date_change', 'date_plane', 'date_resolve'], 'safe'],
             [['name'], 'string', 'max' => 255],
+            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::className(), 'targetAttribute' => ['category_id' => 'id']],
+            [['responsible_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['responsible_id' => 'id']],
             [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => Status::className(), 'targetAttribute' => ['status_id' => 'id']],
+            [['target_id'], 'exist', 'skipOnError' => true, 'targetClass' => Targets::className(), 'targetAttribute' => ['target_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
@@ -79,13 +82,33 @@ class Targets extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'description' => 'Description',
+            'category_id' => 'Category ID',
+            'target_id' => 'Target ID',
             'user_id' => 'User ID',
+            'responsible_id' => 'Responsible ID',
             'date_create' => 'Date Create',
             'date_change' => 'Date Change',
             'date_plane' => 'Date Plane',
             'date_resolve' => 'Date Resolve',
+            'result' => 'Result',
             'status_id' => 'Status ID',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategory()
+    {
+        return $this->hasOne(Categories::className(), ['id' => 'category_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getResponsible()
+    {
+        return $this->hasOne(Users::className(), ['id' => 'responsible_id']);
     }
 
     /**
@@ -99,13 +122,16 @@ class Targets extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getTarget()
+    {
+        return $this->hasOne(Targets::className(), ['id' => 'target_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getUser()
     {
         return $this->hasOne(Users::className(), ['id' => 'user_id']);
-    }
-
-    public function getTasks()
-    {
-        return $this->hasMany(Tasks::className(), ['target_id' => 'id']);
     }
 }

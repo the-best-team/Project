@@ -1,3 +1,21 @@
+@font-face {
+  font-family: "Comfortaa";
+  src: local("Comfortaa"), url("../fonts/Comfortaawght.woff2") format("woff2"), url("../fonts/Comfortaa_wght_.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "MPLUSRounded1c";
+  src: local("MPLUSRounded1c"), url("../fonts/MPLUSRounded1c-Regular.woff2") format("woff2"), url("../fonts/MPLUSRounded1c-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Roboto";
+  src: local("Roboto"), url("../fonts/Roboto-Light.woff2") format("woff2"), url("../fonts/Roboto-Light.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 * {
   box-sizing: border-box;
 }
@@ -202,6 +220,266 @@ h1 span {
 
 .mobile-menu {
   display: none;
+}
+
+.targetsContainer {
+  position: relative;
+  margin: 50px 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+
+.cardTargets {
+  display: block;
+  width: 30%;
+  padding: 10px 0 0;
+  border-radius: 10px;
+  margin-bottom: 50px;
+  border: 1px solid #5774b3;
+}
+.cardTargets .cardTargetsDesc {
+  color: #a0a0a3;
+  opacity: 0.8;
+}
+.cardTargets:hover {
+  background: #38383d;
+  color: #fff;
+}
+.cardTargets:hover .wrapButton {
+  background: #526386;
+}
+
+.cardTask, .cardTargetSingle {
+  display: block;
+  width: 70%;
+  background: #24292e;
+  padding: 10px 20px 20px;
+  border-radius: 10px;
+  border: 1px solid #5774b3;
+  margin-top: 50px;
+}
+.cardTask > p, .cardTargetSingle > p {
+  color: #a0a0a3;
+  opacity: 0.8;
+  font-size: 2.5rem;
+}
+.cardTask > div, .cardTargetSingle > div {
+  font-size: 2rem;
+}
+.cardTask > div > i, .cardTargetSingle > div > i {
+  font-size: 1.5rem;
+  padding: 0 10px 10px 0;
+}
+
+.summaryClass {
+  width: 100%;
+  margin-bottom: 20px;
+  color: #a0a0a3;
+  opacity: 0.5;
+  font-family: Comfortaa, cursive;
+}
+
+.btn-purple {
+  font-size: 20px;
+  color: #fff;
+}
+.btn-purple:hover {
+  color: #563d7c;
+}
+
+.btn-red {
+  font-size: 20px;
+  color: #fff;
+}
+.btn-red:hover {
+  color: #cc332e;
+}
+
+.wrapButton {
+  display: block;
+  margin-top: 20px;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  clear: both;
+  float: right;
+  border-top: 1px solid #5774b3;
+  width: 100%;
+  background: #5774b3;
+  padding: 15px 25px 0 25px;
+}
+.wrapButton > div {
+  float: right;
+  padding-left: 15px;
+  padding-bottom: 10px;
+}
+.wrapButton .trash {
+  margin-top: -2px;
+}
+
+.wrapInfo {
+  padding: 0 25px 0 25px;
+}
+.wrapInfo > a > h4 {
+  font-family: "Comfortaa", cursive;
+  color: white;
+}
+.wrapInfo > a:hover {
+  text-decoration: none;
+}
+
+.dataCreateTarget {
+  float: left;
+  display: block;
+}
+.dataCreateTarget > .fa-circle-o {
+  color: #fd7e14;
+}
+
+.dataDeadlineTarget {
+  float: right;
+  display: block;
+}
+.dataDeadlineTarget > .fa-bolt {
+  color: #dc3545;
+}
+
+.statusTarget {
+  display: block;
+  float: left;
+  clear: both;
+}
+
+.tasksToday {
+  background: url("../img/tableBg.svg") no-repeat 70% 0%;
+  background-size: 75vh;
+}
+.tasksToday > h5 > .hasDatepicker {
+  background: none;
+  color: white;
+  border: 1px solid #5774b3;
+  border-bottom-left-radius: 15px;
+  border-top-left-radius: 15px;
+  margin-left: 10px;
+  text-align: center;
+  padding: 10px 0;
+}
+.tasksToday #btnDateToday {
+  border-radius: 0px 15px 15px 0;
+  padding: 8.4px 15px;
+  background: #5774b3;
+  border: none;
+  color: white;
+  margin-left: -4px;
+  margin-top: -2.5px;
+}
+.tasksToday thead {
+  background: #c4e3f3;
+  height: 5rem;
+  color: #222222;
+}
+.tasksToday thead > tr:hover {
+  background: #c4e3f3;
+  color: #222222;
+  opacity: 1;
+}
+.tasksToday tr:hover {
+  color: #222222;
+  background: #5774b3;
+  opacity: 0.5;
+}
+.tasksToday tr:hover > td > a {
+  color: white;
+  font-weight: bold;
+}
+.tasksToday tr > td > a {
+  color: white;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.tasksToday table {
+  margin: 50px 0 80px 0;
+  border: 1px solid #5774b3;
+  background: #24292e;
+}
+.tasksToday tbody > p {
+  margin-top: 20px;
+}
+
+.allTasks {
+  background: url("../img/taskTableBG2.svg") no-repeat 90% 0%;
+  background-size: 80vh;
+}
+.allTasks table {
+  margin: 0 0 80px 0;
+  border: 1px solid #5774b3;
+  background: #24292e;
+}
+.allTasks thead {
+  background: #c4e3f3;
+  height: 5rem;
+  color: #222222;
+}
+.allTasks thead > tr:hover {
+  background: #c4e3f3;
+  color: #222222;
+  opacity: 1;
+}
+.allTasks thead > tr > th > a {
+  color: #222222;
+}
+.allTasks thead > tr > th > a:hover {
+  text-decoration: none;
+}
+.allTasks tr:hover {
+  color: #222222;
+  background: #5774b3;
+  opacity: 0.5;
+}
+.allTasks tr:hover > td > a {
+  color: white;
+  font-weight: bold;
+}
+.allTasks tr > td > a {
+  color: white;
+  text-decoration: none;
+}
+.allTasks table > tbody > tr > td:nth-child(2) {
+  text-transform: uppercase;
+}
+
+.formTask, .formTarget {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+
+.tasks-form, .targets-form {
+  background: url("../img/formTaskBG.svg") no-repeat 100% 0%;
+  background-size: 95vh;
+}
+
+.tasksView, .targetsView {
+  background: url("../img/formTaskBG.svg") no-repeat 100% 50%;
+  background-size: 95vh;
+  padding-bottom: 150px;
+}
+
+.ramka {
+  border: 1px solid #9d9d9d;
+  border-radius: 20px;
+  padding: 50px;
+  text-align: center;
+}
+.ramka img {
+  width: 40vw;
 }
 
 @media screen and (max-width: 1280px) {

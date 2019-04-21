@@ -1,7 +1,7 @@
 html,
 body {
     height: 100%;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
     color: #e6ecff;
 }
 
@@ -14,6 +14,11 @@ body {
 
 .wrap > .container {
     padding: 70px 15px 20px;
+}
+
+h1{
+    font-family: 'Comfortaa', cursive;
+
 }
 
 .footer {
